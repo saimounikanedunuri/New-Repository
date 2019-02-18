@@ -4,6 +4,21 @@
   <title>Departments</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 * {
   box-sizing: border-box;
 }
@@ -243,10 +258,25 @@ span.psw {
 {% if user.is_authenticated %}
     <p>hello</p>
     <p>welcome {{ user.username }}</p>
-<a href="subjects">Subject</a><br>
-<a href="lecturers">Lecturer</a><br>
-<a href="results">Result</a>
-
+<a href="/subjects">Subject</a><br>
+<a href="/lecturers">Lecturer</a><br>
+<a href="/results">Result</a>
+<h2>Student details</h2>
+<table>
+<tr>
+<th>Subject</th>
+<th>Marks</th>
+<th>Lecturer</th>
+</tr>
+<tr>
+    {{ results|length }}
+{% for result in results %}
+          <td>{{ result.pk }}</td>
+    <td>{{ result.marks }}</td>
+    <td> {{ result.subject.lecturer.name }}</td>
+{% endfor %}
+</tr>
+</table>
     <p><a href="/logout">Logout</a></p>
 
     {% else %}
